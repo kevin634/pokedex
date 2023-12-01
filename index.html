@@ -23,13 +23,16 @@
 //import fetch from "fetch"
 function bus() {
    let id = document.getElementById("id").value;
+   id = id.toLowerCase()
+   id =id.slice("0")
+    console.log(id)
     let url = "https://pokeapi.co/api/v2/pokemon/"+id+"/";
     fetch(url)
   .then((response) => {
     // Manejar los errores
     if (response.status !== 200) {
       alert("el pokemon que estas buscando no exite o lo has escrito mal");
-      throw new Error("Error al consultar la API");
+      //throw new Error("Error al consultar la API");
     }
     // Manejar los datos
     return response.json();
