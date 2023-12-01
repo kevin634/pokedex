@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pokedex</title>
+</head>
+<body>
+    <div class="formu">
+      <h3>POKEDEX BUSCAR POKEMON</h3>
+    <form action="pokedex.php" method="post">
+        <label for="id">numero o nombre</label>
+        <input type="text" name="id" id="id">
+        <button type="button" onclick="bus()">buscar</button>
+    </form>
+  <p id="num">numero:1</p>
+  <p id="nom">nombre: bulbasaur</p>
+  <p id="alt">altura:7</p>
+  <p id="pes">peso:69</p>
+  <img id="imgp" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="">
+</div>
+<script>
+//import fetch from "fetch"
+function bus() {
+   let id = document.getElementById("id").value;
+    let url = "https://pokeapi.co/api/v2/pokemon/"+id+"/";
+    fetch(url)
+  .then((response) => {
+    // Manejar los errores
+    if (response.status !== 200) {
+      alert("el pokemon que estas buscando no exite o lo has escrito mal");
+      throw new Error("Error al consultar la API");
+    }
+    // Manejar los datos
+    return response.json();
+  })
+  .then((data) => {
+    // Mostrar los datos
+    document.getElementById("num").innerText= "numero: "+ data.id;
+    document.getElementById("nom").innerText= "nombre: "+data.name;
+    document.getElementById("alt").innerText= "altura: "+data.height;
+    document.getElementById("pes").innerText= "peso: "+data.weight;
+    let imgUrl = data.sprites.front_default;
+    document.getElementById("imgp").src = imgUrl
+  });
+}
+</script>
+<style>
+    .formu{
+        background-color: aqua;
+        display: grid;
+        place-items: center;
+    }
+    img{
+        width: 220px;
+        height: 220px;
+    }
+    h3{
+      color: brown;
+    }
+</style>
+</body>
+</html>
